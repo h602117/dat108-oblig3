@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -13,5 +15,14 @@
             <input type="text" name="item" />
             <input type="submit" value="add" />
         </form>
+    <c:forEach var="element" items="${list.items}">
+        <div>
+            <form method="post" action="shoppingList/delete">
+                <input type="hidden" value="${element.name}"/>
+                <input type="submit" value="delete"/>
+                <span>${element.name}</span>
+            </form>
+        </div>
+    </c:forEach>
     </body>
 </html>
