@@ -14,10 +14,10 @@ public class IndexController {
     @GetMapping
     public String getView(HttpServletRequest request, RedirectAttributes ra) {
         if (AuthUtils.isLoggedIn(request.getSession())) {
-            return "redirect:/oppg1/shoppingList";
+            return "redirect:shoppingListView";
         }
 
-        return "redirect:/oppg1/auth";
+        return "redirect:loginView";
     }
 
 }

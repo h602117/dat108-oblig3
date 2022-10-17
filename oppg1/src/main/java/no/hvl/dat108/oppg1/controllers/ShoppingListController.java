@@ -7,46 +7,46 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping("/shoppingList")
 public class ShoppingListController {
     private final ShoppingList list = new ShoppingList();
 
-    @GetMapping
+    @GetMapping("/shoppingListView")
     public String getView(HttpServletRequest request, RedirectAttributes ra, ModelMap model) {
         if (!AuthUtils.isLoggedIn(request.getSession())) {
-            return "redirect:/oppg1";
+            return "redirect:loginView";
         }
+
         model.put("list", list);
         return "shoppingListView";
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public String addItem(@RequestParam String item, HttpServletRequest request, RedirectAttributes ra) {
         if (!AuthUtils.isLoggedIn(request.getSession())) {
-            return "redirect:/oppg1";
+            return "redirect:loginView";
         }
-        if(item.trim().length() > 0 && !item.contains("\"")) {
+
+        if (item.trim().length() > 0 && !item.contains("\"")) {
             list.addItem(new ShoppingListItem(item));
         }
-        return "redirect:shoppingList";
-   }
-    @PostMapping(path="/delete")
-    public String removeItem(@RequestParam String item,HttpServletRequest request, RedirectAttributes ra) {
-        System.out.println("blablabal");
+
+        return "redirect:shoppingListView";
+    }
+
+    @PostMapping("/delete")
+    public String removeItem(@RequestParam String item, HttpServletRequest request, RedirectAttributes ra) {
         if (!AuthUtils.isLoggedIn(request.getSession())) {
-            return "redirect:/oppg1";
+            return "redirect:loginView";
         }
+
         list.removeItem(item);
-
-        return "redirect:/oppg1";
-
+        return "redirect:shoppingListView";
     }
 
 }

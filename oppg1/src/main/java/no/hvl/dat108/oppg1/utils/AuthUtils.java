@@ -5,11 +5,13 @@ import javax.servlet.http.HttpSession;
 
 public class AuthUtils {
 
+    private static Integer MAX_INACTIVE_INTERVAL = 60;
+
     public static void login(HttpServletRequest request) {
         logout(request.getSession());
 
         HttpSession session = request.getSession();
-        session.setMaxInactiveInterval(60);
+        session.setMaxInactiveInterval(MAX_INACTIVE_INTERVAL);
         session.setAttribute("is_authenticated", true);
     }
 
