@@ -32,9 +32,11 @@ public class ShoppingListController {
         if (!AuthUtils.isLoggedIn(request.getSession())) {
             return "redirect:/oppg1";
         }
-        list.addItem(new ShoppingListItem(item));
+        if(item.trim().length() > 0 && !item.contains("\"")) {
+            list.addItem(new ShoppingListItem(item));
+        }
         return "redirect:shoppingList";
-    }
+   }
     @PostMapping(path="/delete")
     public String removeItem(@RequestParam String item,HttpServletRequest request, RedirectAttributes ra) {
         System.out.println("blablabal");

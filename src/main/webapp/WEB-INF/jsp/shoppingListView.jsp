@@ -18,9 +18,11 @@
     <c:forEach var="element" items="${list.items}">
         <div>
             <form method="post" action="shoppingList/delete">
-                <input type="hidden" value="${element.name}"/>
+                <input type="hidden" name="item" value="${element.name}"/>
                 <input type="submit" value="delete"/>
-                <span>${element.name}</span>
+                <span>
+                    <c:out value="${element.name}"/>
+                </span>
             </form>
         </div>
     </c:forEach>
